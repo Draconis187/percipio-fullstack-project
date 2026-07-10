@@ -54,6 +54,10 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1'
+]
+
 ROOT_URLCONF = 'crud.urls'
 
 TEMPLATES = [

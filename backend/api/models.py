@@ -14,6 +14,9 @@ class Courses(models.Model):
     CreatedDate = models.DateField(auto_now=False, auto_now_add=True)
     IsDeleted = models.BooleanField()
 
+    def __str__(self):
+        return self.Name
+
 class StudentsAndCourses(models.Model):
     SACID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     UserID = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)

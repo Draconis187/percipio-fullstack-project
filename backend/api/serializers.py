@@ -12,3 +12,15 @@ class CourseSerializer(serializers.ModelSerializer):
                     "NumberOfSteps",
                     "IsDeleted"
                 )
+        
+
+class StudentAndCoursesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentsAndCourses
+        fields = (                  
+                    "UserID",
+                    "CourseID",
+                    "CurrentProgress",
+                    "Completed",
+                    "CompletedDate"
+                )        

@@ -23,4 +23,4 @@ class StudentsAndCourses(models.Model):
     CourseID = models.ForeignKey(Courses, on_delete=models.PROTECT)
     CurrentProgress = models.SmallIntegerField()
     Completed = models.BooleanField()
-    CompletedDate = models.DateField(auto_now=True, auto_now_add=False)
+    CompletedDate = models.DateField(auto_now=False, auto_now_add=False)

@@ -5,11 +5,20 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Courses
         fields = (
+                    "CourseID",
                     "CreatorID", 
                     "Name",
                     "Description",
                     "Subject",
                     "NumberOfSteps",
+                    "IsDeleted"
+                )
+
+class CourseDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Courses
+        fields = (
+                    "CourseID",
                     "IsDeleted"
                 )
         

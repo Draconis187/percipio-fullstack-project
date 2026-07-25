@@ -1,0 +1,25 @@
+$kind: http-request
+name: Getting a single Course record
+description: ""
+url: http://127.0.0.1:8000/courses/bec96d7e-8839-4ad4-b465-8652c787c3c1/
+method: GET
+body:
+  type: json
+  content: " {\r
+
+    \        \"CreatorID\": 2,\r
+
+    \        \"Name\": \"Learning 101 (Altered)\",\r
+
+    \        \"Description\": \"To learn new things\",\r
+
+    \        \"Subject\": \"Learning\",\r
+
+    \        \"NumberOfSteps\": 9,\r
+
+    \        \"IsDeleted\": false\r
+
+    \    }\r
+
+    \    "
+order: 820561723225217

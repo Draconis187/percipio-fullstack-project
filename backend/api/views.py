@@ -15,7 +15,7 @@ class CourseViewSet(viewsets.ViewSet):
     serializer_class = CourseSerializer
 
     def list(self, request):
-        queryset = self.queryset
+        queryset = Courses.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 

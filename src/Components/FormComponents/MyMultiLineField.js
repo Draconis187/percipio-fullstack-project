@@ -22,6 +22,8 @@ export default function MyMultiLineTextField(props) {
           multiline
           maxRows={4}
           placeholder={placeholder}
+          error={!!error}
+          helperText={error?.message}
         />
       )}
     />

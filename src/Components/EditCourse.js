@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Button, Typography, IconButton } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import SaveIcon from "@mui/icons-material/Save";
 import MyMultiLineTextField from "./FormComponents/MyMultiLineField";
 import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
@@ -23,7 +25,7 @@ const EditCourse = () => {
 
   const navigate = useNavigate();
 
-  const GetCourseList = () => {
+  const GetCourse = () => {
     AxiosInstance.get(`courses/${editCourseID}`).then((res) => {
       setEditorID(res.data.CreatorID);
       setValue("Name", res.data.Name);
@@ -35,13 +37,12 @@ const EditCourse = () => {
   };
 
   useEffect(() => {
-    //console.log(editCourseID);
-    GetCourseList();
+    GetCourse();
   }, []);
 
   const undoChanges = () => {
     setLoading(true);
-    GetCourseList();
+    GetCourse();
   };
 
   const deleteCourse = (course) => {
@@ -50,25 +51,21 @@ const EditCourse = () => {
         `Are you sure you wish to delete the ${course.Name} course?`,
       ) == true
     ) {
-      console.log(course);
-      // AxiosInstance.put(`courses/${editCourseID}/`, {
-      //   CreatorID: EditorID,
-      //   Name: course.Name,
-      //   Description: course.Description,
-      //   Subject: course.Subject,
-      //   NumberOfSteps: course.NumberOfSteps,
-      //   IsDeleted: 1,
-      // }).then(() => {
-      // window.alert(`Deleted ${course.Name} successfully`);
-      window.alert(`Deleted  successfully`);
-      navigate(-1);
-      //   GetCourseList();
-      // });
+      AxiosInstance.put(`courses/${editCourseID}/`, {
+        CreatorID: EditorID,
+        Name: course.Name,
+        Description: course.Description,
+        Subject: course.Subject,
+        NumberOfSteps: course.NumberOfSteps,
+        IsDeleted: 1,
+      }).then(() => {
+        window.alert(`Successfully deleted ${course.Name}`);
+        navigate("/homePage");
+      });
     }
   };
 
   const submitCourse = (course) => {
-    console.log(EditorID);
     AxiosInstance.put(`courses/${editCourseID}/`, {
       CreatorID: EditorID,
       Name: course.Name,
@@ -153,13 +150,20 @@ const EditCourse = () => {
             justifyContent: "space-around",
           }}
         >
-          <Button variant="outlined" color="warning" onClick={deleteCourse}>
+          <Button
+            variant="outlined"
+            color="warning"
+            onClick={handleSubmit(deleteCourse)}
+          >
+            <DeleteIcon />
             Delete Course
           </Button>
           <Button variant="outlined" type="reset" onClick={undoChanges}>
+            <RestartAltIcon />
             Undo Changes
           </Button>
           <Button variant="contained" type="submit">
+            <SaveIcon />
             Save Changes
           </Button>
         </Box>

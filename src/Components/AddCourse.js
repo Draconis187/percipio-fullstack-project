@@ -30,7 +30,7 @@ const AddCourse = () => {
       IsDeleted: 0,
     }).then(() => {
       window.alert(`Created ${course.Name} successfully`);
-      navigate(-1);
+      navigate("/homePage");
     });
   };
 

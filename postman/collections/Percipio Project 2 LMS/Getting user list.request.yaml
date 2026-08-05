@@ -1,0 +1,6 @@
+$kind: http-request
+name: Getting user list
+description: ""
+url: http://127.0.0.1:8000/users/
+method: GET
+order: 4457465357896246

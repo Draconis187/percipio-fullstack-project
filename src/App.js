@@ -6,6 +6,10 @@ import StudentEnroll from "./Components/StudentEnroll";
 import AddCourse from "./Components/AddCourse";
 import HomePage from "./Components/HomePage";
 import EditCourse from "./Components/EditCourse";
+import CourseDetails from "./Components/CourseDetails";
+import AdminPage from "./Components/AdminPage";
+import EditUser from "./Components/EditUser";
+import AddUser from "./Components/AddUser";
 
 function App() {
   return (
@@ -16,6 +20,10 @@ function App() {
         <Route path="homePage/addCourse" element={<AddCourse />} />
         <Route path="/homePage" element={<HomePage />} />
         <Route path="homePage/editCourse/:id" element={<EditCourse />} />
+        <Route path="homePage/courseDetails/:id" element={<CourseDetails />} />
+        <Route path="/adminPage" element={<AdminPage />} />
+        <Route path="adminPage/addUser" element={<AddUser />} />
+        <Route path="admin/editUser" element={<EditUser />} />
       </Routes>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

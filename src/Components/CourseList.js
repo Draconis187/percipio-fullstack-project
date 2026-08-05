@@ -68,11 +68,19 @@ const CourseList = () => {
               >
                 <EditIcon />
               </IconButton>
+              <Button
+                color="primary"
+                variant="contained"
+                component={Link}
+                to={`CourseDetails/${row.original.CourseID}`}
+              >
+                More detail
+              </Button>
             </Box>
           )}
         />
       )}
-      <Box>
+      <Box sx={{ display: "flex", marginTop: "1.8%" }}>
         <Button variant="contained" component={Link} to={"AddCourse/"}>
           Add New Course
         </Button>

@@ -57,21 +57,23 @@ class StudentAndCoursesViewSet(viewsets.ViewSet):
     serializer_class = StudentAndCoursesSerializer
 
     def list(self, request):
-        queryset = self.queryset
+        queryset = StudentsAndCourses.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
+            
             serializer.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
 
-    def retrieve(self, request, pk=None):
-        course = self.queryset.get(pk=pk)
-        serializer = self.serializer_class(course)
+    def retrieve(self, request, pk=None, **kwargs):
+        #TODO: Try this logic in the list rather than the retrieve
+        courses= StudentsAndCourses.objects.get(UserID_id= kwargs["UserID_id"])
+        serializer = self.serializer_class(courses, many=True)
         return Response(serializer.data)
 
     def update(self, request, pk=None):
@@ -85,8 +87,7 @@ class StudentAndCoursesViewSet(viewsets.ViewSet):
 
 
 class UsersViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.AllowAny]
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = LMSUser.objects.all()
     serializer_class = UsersSerializer
 
@@ -128,6 +129,7 @@ class LoginViewset(viewsets.ViewSet):
                     
                     {
                         "id":user.pk,
+                        "userType":user.userType,
                         "user":self.serializer_class(user).data,
                         "token": token
                     }

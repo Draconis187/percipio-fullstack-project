@@ -43,12 +43,12 @@ class Courses(models.Model):
     def __str__(self):
         return self.Name
 
-class StudentsAndCourses(models.Model):
+class StudentsAndCourses(models.Model):    
     SACID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     UserID = models.ForeignKey(LMSUser, on_delete=models.PROTECT)
     CourseID = models.ForeignKey(Courses, on_delete=models.PROTECT)
-    CurrentProgress = models.SmallIntegerField()
-    Completed = models.BooleanField()
-    CompletedDate = models.DateField(auto_now=False, auto_now_add=False)
+    CurrentProgress = models.SmallIntegerField(null=True)
+    Completed = models.BooleanField(null=True)
+    CompletedDate = models.DateField(auto_now=False, auto_now_add=False, null=True)
 
 

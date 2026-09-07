@@ -28,10 +28,7 @@ class StudentAndCoursesSerializer(serializers.ModelSerializer):
         model = StudentsAndCourses
         fields = (                  
                     "UserID",
-                    "CourseID",
-                    "CurrentProgress",
-                    "Completed",
-                    "CompletedDate"
+                    "CourseID"
                 )        
 
 
@@ -42,8 +39,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username","email","password", "userType")
-        read_only_fields = ("id",)
+        fields = ("id","username","email","password", "userType")
         extra_kwargs = {
             "password": {"write_only": True}
         }

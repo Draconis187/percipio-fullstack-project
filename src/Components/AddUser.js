@@ -10,26 +10,60 @@ import MySelectField from "./FormComponents/MySelectField";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import NavBar from "./NavBar";
+import { useState } from "react";
 
 const defaultValues = {
   username: "",
   email: "",
   password: "",
   confirmPassword: "",
-  userType: 1,
+  userType: "",
 };
-
 const userTypes = [1, 2];
+
+const schema = yup.object({
+  username: yup.string().required("Username is required."),
+  email: yup
+    .string()
+    .email("A valid email is required")
+    .required("email is required"),
+  password: yup
+    .string()
+    .required("Password is required.")
+    .matches(
+      "/[A-Z]/",
+      "The password must contain at least one uppercase letter",
+    )
+    .matches(
+      "/[a-z]/",
+      "The password must contain at least one lowercase letter",
+    )
+    .matches("/[0-9]/", "The password must contain at least one number")
+    .matches(
+      "/[!£$%^&*_+-=<>,.?~#:;]/",
+      "The password must contain at least one special character",
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Passwords must match"),
+  userType: yup
+    .number()
+    .oneOf([1, 2], null)
+    .required("Please select an option"),
+});
 
 const AddUser = () => {
   const resetFields = () => {
     reset();
   };
 
-  const [userType, setUserType] = React.useState("");
+  const [userType, setUserType] = useState("");
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setUserType(event.target.value);
   };
 
@@ -41,18 +75,25 @@ const AddUser = () => {
       email: user.email,
       password: user.password,
       userType: userType,
-    }).then(() => {
-      window.alert(`Created ${user.username} successfully`);
-      navigate("/AdminPage");
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 201) {
+        window.alert(`Created ${user.username} successfully`);
+        navigate("/AdminPage");
+      } else {
+        window.alert(`Error creating user, see form for details.`);
+      }
     });
   };
 
   const { handleSubmit, reset, control } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   return (
     <div>
+      <NavBar />
       <form onSubmit={handleSubmit(submitUser)}>
         <Box
           sx={{

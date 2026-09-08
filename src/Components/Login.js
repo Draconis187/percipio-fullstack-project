@@ -1,29 +1,33 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Container } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { Container, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
 import { useForm } from "react-hook-form";
 import MyTextField from "./FormComponents/MyTextField";
 import MyPasswordField from "./FormComponents/MyPasswordField";
 import AxiosInstance from "./Axios";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useState } from "react";
 
 const Login = (props) => {
   const navigate = useNavigate();
+  const [loginErrorMessage, showLoginErrorMessage] = useState(false);
 
   const defaultValues = {
     username: "",
     password: "",
   };
 
-  const submission = (data) => {
-    AxiosInstance.post();
-  };
+  const schema = yup.object({
+    username: yup.string().required("Username is required"),
+    password: yup.string().required("Password is required."),
+  });
 
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   const submitLogin = (user) => {
@@ -34,58 +38,83 @@ const Login = (props) => {
       .then((res) => {
         sessionStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("userId", res.data.id);
-        AxiosInstance.get(`users/${res.data.id}`).then((loggedIn) => {
-          switch (loggedIn.data.userType) {
-            case 0:
-              return navigate("/adminPage");
-            case 1:
-              return navigate("/studentEnroll");
-            case 2:
-              return navigate("/homePage");
-            default:
-              break;
-          }
-        });
-
-        //navigate("/adminPage");
+        sessionStorage.setItem("userType", res.data.userType);
+        switch (res.data.userType) {
+          case 0:
+            return navigate("/adminPage");
+          case 1:
+            return navigate("/studentPage");
+          case 2:
+            return navigate("/homePage");
+          default:
+            break;
+        }
       })
       .catch((error) => {
-        console.error("Error during login", error);
+        showLoginErrorMessage(true);
+        setTimeout(() => {
+          showLoginErrorMessage(false);
+        }, 3000);
       });
   };
 
   return (
-    <Box component="section">
+    <Box
+      component="section"
+      sx={{
+        mx: "5px",
+        pb: "5px",
+        textAlign: "center",
+      }}
+    >
       <Container>
         <h1>Welcome to the Learning Management System</h1>
-        <h3>Please log in</h3>
       </Container>
       <Container>
-        <Box sx={{ borderRadius: 1, borderWidth: "2px" }}>
+        <Box
+          sx={{
+            border: "1px solid lightgrey",
+            borderRadius: "10px",
+            pb: "10px",
+            width: "60%",
+            bgcolor: "white",
+            display: "inline-block",
+          }}
+        >
           <form onSubmit={handleSubmit(submitLogin)}>
             <Container>
-              <Box sx={{ display: "flex", marginTop: "1.8%" }}>
+              <Box
+                sx={{
+                  marginTop: "5%",
+                  width: { xs: "100%", sm: "259px" },
+                  display: "inline-block",
+                }}
+              >
                 <MyTextField
                   label="Username"
                   name="username"
                   control={control}
                   placeholder="Username"
-                  width={"50%"}
+                  width={"100%"}
                 />
               </Box>
-            </Container>
-            <Container>
-              <Box sx={{ display: "flex", marginTop: "1.8%" }}>
+
+              <Box sx={{ display: "block", marginTop: "5%" }}>
                 <MyPasswordField
                   label="Password"
                   name="password"
                   control={control}
                   placeholder="Password"
-                  width={"50%"}
+                  width={"100px"}
                 />
               </Box>
             </Container>
-            <Container sx={{ display: "flex", marginTop: "1.8%" }}>
+            {loginErrorMessage ? (
+              <Typography color="error">
+                The username or password are not valid
+              </Typography>
+            ) : null}
+            <Container sx={{ display: "block", marginTop: "5%" }}>
               <Button variant="contained" type="submit">
                 Log in
               </Button>

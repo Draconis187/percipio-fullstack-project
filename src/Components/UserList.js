@@ -1,11 +1,7 @@
 import { React, useEffect, useMemo, useState } from "react";
 import AxiosInstance from "./Axios";
-import {
-  useMaterialReactTable,
-  MaterialReactTable,
-} from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 import { Edit as EditIcon } from "@mui/icons-material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
 import { Box, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -64,18 +60,22 @@ const UserList = () => {
           columns={columns}
           data={UserListData}
           enableRowActions
-          renderRowActions={({ row }) => (
-            <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
-              <IconButton
-                color="secondary"
-                nativeButton={false}
-                component={Link}
-                // to={`EditUser/${row.original.UserID}`}
-              >
-                <EditIcon />
-              </IconButton>
-            </Box>
-          )}
+          renderRowActions={({ row }) =>
+            row.original.userType != 0 ? (
+              <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
+                <IconButton
+                  color="secondary"
+                  nativeButton={false}
+                  component={Link}
+                  to={`EditUser/${row.original.id}`}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Box>
+            ) : (
+              <></>
+            )
+          }
         />
       )}
       <Box sx={{ display: "flex", marginTop: "1.8%" }}>

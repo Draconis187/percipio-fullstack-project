@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, Button, Typography, IconButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  IconButton,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
@@ -9,29 +18,51 @@ import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import MyPasswordField from "./FormComponents/MyPasswordField";
+import { yupResolver } from "@hookform/resolvers";
+import * as yup from "yup";
+import NavBar from "./NavBar";
 
 const defaultValues = {
-  Name: "",
-  Description: "",
-  Subject: "",
-  NumberOfSteps: 0,
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  userType: "",
 };
+
+const schema = yup.object({
+  username: yup.string().required("Username is required."),
+  email: yup.string().required("email is required."),
+  password: yup.string().required("Subject is required."),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match"),
+  userType: yup.number("Select an option"),
+});
 
 const EditUser = () => {
   const UserParams = useParams();
   const editUserID = UserParams.id;
   const [loading, setLoading] = useState(true);
   const [EditorID, setEditorID] = useState();
+  const [userType, setUserType] = useState("");
+
+  const userTypes = [1, 2];
 
   const navigate = useNavigate();
 
   const GetUser = () => {
     AxiosInstance.get(`users/${editUserID}`).then((res) => {
-      setEditorID(res.data.CreatorID);
       setValue("username", res.data.username);
       setValue("email", res.data.email);
+      setValue("userType", res.data.userType);
       setLoading(false);
     });
+  };
+
+  const handleChange = (event) => {
+    setUserType(event.target.value);
   };
 
   useEffect(() => {
@@ -62,13 +93,10 @@ const EditUser = () => {
 
   const submitUser = (user) => {
     AxiosInstance.put(`users/${editUserID}/`, {
-      CreatorID: EditorID,
-      Name: user.Name,
-      Description: user.Description,
-      Subject: user.Subject,
-      NumberOfSteps: user.NumberOfSteps,
-
-      IsDeleted: 0,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      userType: user.userType,
     }).then(() => {
       window.alert(`Updated ${user.Name} successfully`);
       navigate(`/homePage`);
@@ -81,6 +109,7 @@ const EditUser = () => {
 
   return (
     <div>
+      <NavBar />
       <form onSubmit={handleSubmit(submitUser)}>
         <Box
           sx={{
@@ -90,7 +119,9 @@ const EditUser = () => {
             alignItems: "center",
           }}
         >
-          <Typography sx={{ marginLeft: "20px" }}>Add new User</Typography>
+          <Typography variant="h4" sx={{ marginLeft: "20px" }}>
+            Edit user details
+          </Typography>
         </Box>
 
         <Box
@@ -104,37 +135,37 @@ const EditUser = () => {
         >
           <Box sx={{ display: "flex", marginTop: "1.8%" }}>
             <MyTextField
-              label="User Name"
-              name="Name"
+              label="Username"
+              name="username"
               control={control}
-              placeholder="User Name"
-              width={"95%"}
-            />
-          </Box>
-          <Box sx={{ display: "flex", marginTop: "1.8%" }}>
-            <MyMultiLineTextField
-              label="Description"
-              name="Description"
-              control={control}
-              placeholder="Full description of the User's contents"
+              placeholder="Username"
               width={"95%"}
             />
           </Box>
           <Box sx={{ display: "flex", marginTop: "1.8%" }}>
             <MyTextField
-              label="Subject"
-              name="Subject"
+              label="Email"
+              name="email"
               control={control}
-              placeholder="Subject"
+              placeholder="Email address"
               width={"95%"}
             />
           </Box>
           <Box sx={{ display: "flex", marginTop: "1.8%" }}>
-            <MyTextField
-              label="Number of steps"
-              name="NumberOfSteps"
+            <MyPasswordField
+              label="Password"
+              name="password"
               control={control}
-              placeholder="0"
+              placeholder="password"
+              width={"95%"}
+            />
+          </Box>
+          <Box sx={{ display: "flex", marginTop: "1.8%" }}>
+            <MyPasswordField
+              label="Confirm password"
+              name="confirmPassword"
+              control={control}
+              placeholder="password"
               width={"95%"}
             />
           </Box>

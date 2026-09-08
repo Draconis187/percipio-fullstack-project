@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Typography, IconButton } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
@@ -9,6 +9,9 @@ import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import NavBar from "./NavBar";
 
 const defaultValues = {
   Name: "",
@@ -17,22 +20,32 @@ const defaultValues = {
   NumberOfSteps: 0,
 };
 
+const schema = yup.object({
+  Name: yup.string().required("Course Name is required."),
+  Description: yup.string().required("Description is required."),
+  Subject: yup.string().required("Subject is required."),
+  NumberOfSteps: yup
+    .number("Must be a number")
+    .positive("Number can not be negative")
+    .integer("Must be a number")
+    .moreThan(0, "Must be higher than 0.")
+    .required("This field is required."),
+});
+
 const EditCourse = () => {
   const courseParams = useParams();
   const editCourseID = courseParams.id;
-  const [loading, setLoading] = useState(true);
-  const [EditorID, setEditorID] = useState();
+  const [originalCreatorID, setOriginalCreatorID] = useState();
 
   const navigate = useNavigate();
 
   const GetCourse = () => {
     AxiosInstance.get(`courses/${editCourseID}`).then((res) => {
-      setEditorID(res.data.CreatorID);
+      setOriginalCreatorID(res.data.CreatorID);
       setValue("Name", res.data.Name);
       setValue("Description", res.data.Description);
       setValue("Subject", res.data.Subject);
       setValue("NumberOfSteps", res.data.NumberOfSteps);
-      setLoading(false);
     });
   };
 
@@ -41,7 +54,6 @@ const EditCourse = () => {
   }, []);
 
   const undoChanges = () => {
-    setLoading(true);
     GetCourse();
   };
 
@@ -52,7 +64,7 @@ const EditCourse = () => {
       ) == true
     ) {
       AxiosInstance.put(`courses/${editCourseID}/`, {
-        CreatorID: EditorID,
+        CreatorID: originalCreatorID,
         Name: course.Name,
         Description: course.Description,
         Subject: course.Subject,
@@ -67,24 +79,31 @@ const EditCourse = () => {
 
   const submitCourse = (course) => {
     AxiosInstance.put(`courses/${editCourseID}/`, {
-      CreatorID: EditorID,
+      CreatorID: originalCreatorID,
       Name: course.Name,
       Description: course.Description,
       Subject: course.Subject,
       NumberOfSteps: course.NumberOfSteps,
       IsDeleted: 0,
-    }).then(() => {
-      window.alert(`Updated ${course.Name} successfully`);
-      navigate(`/homePage`);
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        window.alert(`Updated ${course.Name} successfully`);
+        navigate(`/homePage`);
+      } else {
+        window.alert("Error editing course, see form for details.");
+      }
     });
   };
 
   const { handleSubmit, reset, control, setValue } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   return (
     <div>
+      <NavBar />
       <form onSubmit={handleSubmit(submitCourse)}>
         <Box
           sx={{

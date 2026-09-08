@@ -1,0 +1,17 @@
+$kind: http-request
+name: Saving new record for Students and Courses
+description: ""
+url: http://127.0.0.1:8000/studentsAndCourses/
+method: POST
+headers:
+  Authorization: ed10efd112da73e0017f33786cc0f85fc12ee9c56e3ef6699604ff85eeee9b07
+body:
+  type: json
+  content: "{\r
+
+    \    \"UserID\":\"\",\r
+
+    \    \"CourseID\":\"\"\r
+
+    }"
+order: 4483769487465157

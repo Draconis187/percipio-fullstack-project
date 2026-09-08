@@ -6,6 +6,7 @@ import {
 } from "material-react-table";
 import { Edit as EditIcon } from "@mui/icons-material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
+import InfoIcon from "@mui/icons-material/Info";
 import { Box, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -63,19 +64,19 @@ const CourseList = () => {
             <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
               <IconButton
                 color="secondary"
+                nativeButton={false}
+                component={Link}
+                to={`courseDetails/${row.original.CourseID}`}
+              >
+                <InfoIcon />
+              </IconButton>
+              <IconButton
+                color="secondary"
                 component={Link}
                 to={`EditCourse/${row.original.CourseID}`}
               >
                 <EditIcon />
               </IconButton>
-              <Button
-                color="primary"
-                variant="contained"
-                component={Link}
-                to={`CourseDetails/${row.original.CourseID}`}
-              >
-                More detail
-              </Button>
             </Box>
           )}
         />

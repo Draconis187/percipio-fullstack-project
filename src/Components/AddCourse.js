@@ -5,6 +5,9 @@ import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const defaultValues = {
   Name: "",
@@ -12,6 +15,18 @@ const defaultValues = {
   Subject: "",
   NumberOfSteps: 0,
 };
+
+const schema = yup.object({
+  Name: yup.string().required("Course Name is required."),
+  Description: yup.string().required("Description is required."),
+  Subject: yup.string().required("Subject is required."),
+  NumberOfSteps: yup
+    .number("Must be a number")
+    .positive("Number can not be negative")
+    .integer("Must be a number")
+    .moreThan(0, "Must be higher than 0.")
+    .required("This field is required."),
+});
 
 const AddCourse = () => {
   const resetFields = () => {
@@ -22,24 +37,30 @@ const AddCourse = () => {
 
   const submitCourse = (course) => {
     AxiosInstance.post(`courses/`, {
-      CreatorID: 1,
+      CreatorID: sessionStorage.getItem("userId"),
       Name: course.Name,
       Description: course.Description,
       Subject: course.Subject,
       NumberOfSteps: course.NumberOfSteps,
       IsDeleted: 0,
-    }).then(() => {
-      window.alert(`Created ${course.Name} successfully`);
-      navigate("/homePage");
+    }).then((res) => {
+      if (res.status === 201) {
+        window.alert(`Created ${course.Name} successfully`);
+        navigate("/homePage");
+      } else {
+        window.alert("Error creating course, see form for details.");
+      }
     });
   };
 
   const { handleSubmit, reset, control } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   return (
     <div>
+      <NavBar />
       <form onSubmit={handleSubmit(submitCourse)}>
         <Box
           sx={{
@@ -49,7 +70,9 @@ const AddCourse = () => {
             alignItems: "center",
           }}
         >
-          <Typography sx={{ marginLeft: "20px" }}>Add new course</Typography>
+          <Typography variant="h4" sx={{ marginLeft: "20px" }}>
+            Add new course
+          </Typography>
         </Box>
 
         <Box
@@ -81,6 +104,7 @@ const AddCourse = () => {
           </Box>
           <Box sx={{ display: "flex", marginTop: "1.8%" }}>
             <MyTextField
+              error
               label="Subject"
               name="Subject"
               control={control}
@@ -90,6 +114,7 @@ const AddCourse = () => {
           </Box>
           <Box sx={{ display: "flex", marginTop: "1.8%" }}>
             <MyTextField
+              error
               label="Number of steps"
               name="NumberOfSteps"
               control={control}

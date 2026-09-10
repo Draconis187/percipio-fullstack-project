@@ -1,18 +1,7 @@
-import React from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  IconButton,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
-import MyMultiLineTextField from "./FormComponents/MyMultiLineField";
 import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
@@ -44,11 +33,6 @@ const schema = yup.object({
 const EditUser = () => {
   const UserParams = useParams();
   const editUserID = UserParams.id;
-  const [loading, setLoading] = useState(true);
-  const [EditorID, setEditorID] = useState();
-  const [userType, setUserType] = useState("");
-
-  const userTypes = [1, 2];
 
   const navigate = useNavigate();
 
@@ -61,13 +45,9 @@ const EditUser = () => {
     });
   };
 
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-  };
-
   useEffect(() => {
     GetUser();
-  }, []);
+  }, [GetUser]);
 
   const undoChanges = () => {
     setLoading(true);
@@ -78,7 +58,7 @@ const EditUser = () => {
     if (
       window.confirm(
         `Are you sure you wish to delete the ${user.Name} user?`,
-      ) == true
+      ) === true
     ) {
       AxiosInstance.put(`users/${editUserID}/`, {
         username: user.username,
@@ -103,8 +83,9 @@ const EditUser = () => {
     });
   };
 
-  const { handleSubmit, reset, control, setValue } = useForm({
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   return (

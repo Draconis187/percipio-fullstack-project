@@ -1,12 +1,10 @@
 import React from "react";
 import { Box, Button, FormControl, Typography } from "@mui/material";
-import MyMultiLineTextField from "./FormComponents/MyMultiLineField";
 import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MyPasswordField from "./FormComponents/MyPasswordField";
-import MySelectField from "./FormComponents/MySelectField";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,7 +20,6 @@ const defaultValues = {
   confirmPassword: "",
   userType: "",
 };
-const userTypes = [1, 2];
 
 const schema = yup.object({
   username: yup.string().required("Username is required."),

@@ -1,11 +1,7 @@
 import { React, useEffect, useMemo, useState } from "react";
 import AxiosInstance from "./Axios";
-import {
-  useMaterialReactTable,
-  MaterialReactTable,
-} from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 import { Edit as EditIcon } from "@mui/icons-material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
 import { Box, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";

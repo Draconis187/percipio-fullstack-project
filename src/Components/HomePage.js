@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import AddCourse from "./AddCourse";
 import CourseList from "./CourseList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -11,14 +10,14 @@ const HomePage = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType == 1) {
+    if (userType === 1) {
       navigate(`/studentPage`);
     }
   };
 
   useEffect(() => {
     checkUserCredentials();
-  }, []);
+  }, [checkUserCredentials]);
 
   return (
     <Box>

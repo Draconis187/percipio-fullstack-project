@@ -1,12 +1,7 @@
-import { React, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AxiosInstance from "./Axios";
-import {
-  useMaterialReactTable,
-  MaterialReactTable,
-} from "material-react-table";
-import { Edit as EditIcon } from "@mui/icons-material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
-import { Box, Button, IconButton, Switch, Typography } from "@mui/material";
+import { MaterialReactTable } from "material-react-table";
+import { Box, IconButton, Switch, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -15,9 +10,9 @@ const StudentEnroll = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType == 2) {
+    if (userType === 2) {
       navigate(`/homePage`);
-    } else if (userType == 0) {
+    } else if (userType === 0) {
       navigate(`/adminPage`);
     }
   };
@@ -32,7 +27,6 @@ const StudentEnroll = () => {
     AxiosInstance.get(`courses/`).then((res) => {
       setCourseListData(res.data);
       const studentCoursesCompare = res.data;
-      //setLoading(false);
 
       AxiosInstance.get(`studentsAndCourses/`).then((res) => {
         for (let index = 0; index < res.data.length; index++) {
@@ -57,7 +51,7 @@ const StudentEnroll = () => {
   useEffect(() => {
     checkUserCredentials();
     GetCourseLists();
-  }, []);
+  }, [checkUserCredentials, GetCourseLists]);
 
   const allCoursesClick = () => {
     setAllCourses(!allCourses);

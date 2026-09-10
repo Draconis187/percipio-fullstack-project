@@ -1,8 +1,4 @@
-import React from "react";
 import { Box, Button, Typography, IconButton, Container } from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
-import MyMultiLineTextField from "./FormComponents/MyMultiLineField";
-import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -20,7 +16,6 @@ const CourseDetails = () => {
   const courseParams = useParams();
   const courseID = courseParams.id;
   const [loading, setLoading] = useState(true);
-  const [editorID, setEditorID] = useState();
   const [courseDetails, setCourseDetails] = useState();
   const userType = sessionStorage.getItem("userType");
 
@@ -44,17 +39,17 @@ const CourseDetails = () => {
 
   useEffect(() => {
     GetCourse();
-  }, []);
+  }, [GetCourse]);
 
   const navigateBack = () => {
-    if (userType == 1) {
+    if (userType === 1) {
       navigate(`/studentPage`);
     } else {
       navigate(`/homePage`);
     }
   };
 
-  const { handleSubmit, control, setValue } = useForm({
+  const { handleSubmit } = useForm({
     defaultValues: defaultValues,
   });
 
@@ -135,7 +130,7 @@ const CourseDetails = () => {
                 variant="contained"
                 type="submit"
                 onClick={handleSubmit(submitCourse)}
-                disabled={userType == 1 ? false : true}
+                disabled={userType === 1 ? false : true}
               >
                 Enroll in this course
               </Button>

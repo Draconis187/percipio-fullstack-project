@@ -51,7 +51,7 @@ const EditCourse = () => {
 
   useEffect(() => {
     GetCourse();
-  }, []);
+  }, [GetCourse]);
 
   const undoChanges = () => {
     GetCourse();
@@ -61,7 +61,7 @@ const EditCourse = () => {
     if (
       window.confirm(
         `Are you sure you wish to delete the ${course.Name} course?`,
-      ) == true
+      ) === true
     ) {
       AxiosInstance.put(`courses/${editCourseID}/`, {
         CreatorID: originalCreatorID,
@@ -96,7 +96,7 @@ const EditCourse = () => {
     });
   };
 
-  const { handleSubmit, reset, control, setValue } = useForm({
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });

@@ -1,6 +1,4 @@
 import { Box } from "@mui/material";
-import AddCourse from "./AddCourse";
-import CourseList from "./CourseList";
 import UserList from "./UserList";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,16 +9,16 @@ const AdminPage = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType == 1) {
+    if (userType === 1) {
       navigate(`/studentPage`);
-    } else if (userType == 2) {
+    } else if (userType === 2) {
       navigate(`/homePage`);
     }
   };
 
   useEffect(() => {
     checkUserCredentials();
-  }, []);
+  }, [checkUserCredentials]);
 
   return (
     <Box>

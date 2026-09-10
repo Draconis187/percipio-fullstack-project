@@ -6,11 +6,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import BookIcon from "@mui/icons-material/Book";
@@ -19,12 +17,11 @@ import AxiosInstance from "./Axios";
 
 export default function NavBar() {
   const userType = sessionStorage.getItem("userType");
-  //const pages = ["Courses", "Users"];
+
   const [pages, setPages] = useState();
   const [getUser, setGetUser] = useState(true);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -40,7 +37,7 @@ export default function NavBar() {
     });
   };
   const getNavPages = () => {
-    if (userType != 0) {
+    if (userType !== 0) {
       setPages(["Courses"]);
     } else {
       setPages(["Courses", "Users"]);
@@ -50,12 +47,12 @@ export default function NavBar() {
 
   useEffect(() => {
     getNavPages();
-  }, []);
+  }, [getNavPages]);
 
   const handleNavBarNavigate = (e) => {
-    if (e == "Users") {
+    if (e === "Users") {
       navigate("/adminPage");
-    } else if (e == "Courses" && userType != 1) {
+    } else if (e === "Courses" && userType != 1) {
       navigate("/homePage");
     } else {
       navigate("/studentPage");

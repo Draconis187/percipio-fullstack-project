@@ -41,7 +41,6 @@ const EditUser = () => {
       setValue("username", res.data.username);
       setValue("email", res.data.email);
       setValue("userType", res.data.userType);
-      setLoading(false);
     });
   };
 
@@ -50,7 +49,6 @@ const EditUser = () => {
   }, [GetUser]);
 
   const undoChanges = () => {
-    setLoading(true);
     GetUser();
   };
 

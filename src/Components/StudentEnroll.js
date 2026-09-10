@@ -51,7 +51,7 @@ const StudentEnroll = () => {
   useEffect(() => {
     checkUserCredentials();
     GetCourseLists();
-  }, [checkUserCredentials, GetCourseLists]);
+  }, []);
 
   const allCoursesClick = () => {
     setAllCourses(!allCourses);

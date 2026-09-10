@@ -18,7 +18,7 @@ const StudentPage = () => {
 
   useEffect(() => {
     checkUserCredentials();
-  }, [checkUserCredentials]);
+  }, []);
 
   return (
     <Box>

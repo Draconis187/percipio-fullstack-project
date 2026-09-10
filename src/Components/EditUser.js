@@ -8,7 +8,7 @@ import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MyPasswordField from "./FormComponents/MyPasswordField";
-import { yupResolver } from "@hookform/resolvers";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import NavBar from "./NavBar";
 

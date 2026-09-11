@@ -1,4 +1,4 @@
-import { Box, Button, Typography, IconButton, Container } from "@mui/material";
+import { Box, Button, Typography, Container } from "@mui/material";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -20,12 +20,6 @@ const CourseDetails = () => {
   const userType = sessionStorage.getItem("userType");
 
   const navigate = useNavigate();
-  const GetCourse = () => {
-    AxiosInstance.get(`courses/${courseID}`).then((res) => {
-      setCourseDetails(res.data);
-      setLoading(false);
-    });
-  };
 
   const submitCourse = (course) => {
     AxiosInstance.post(`studentsAndCourses/`, {
@@ -37,9 +31,15 @@ const CourseDetails = () => {
     });
   };
 
-  useEffect(() => {
-    GetCourse();
-  }, [GetCourse]);
+  useEffect(
+    (courseID) => {
+      AxiosInstance.get(`courses/${courseID}`).then((res) => {
+        setCourseDetails(res.data);
+        setLoading(false);
+      });
+    },
+    [courseDetails],
+  );
 
   const navigateBack = () => {
     if (userType === 1) {

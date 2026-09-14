@@ -1,8 +1,8 @@
 import axios from "axios";
 
 //Get environment variable to change baseurl
-
-const baseUrl = "http://127.0.0.1:8000/";
+//Set the env variable, set it to local when fails
+const baseUrl = process.env.REACT_APP_LMS || "http://127.0.0.1:8000/";
 const AxiosInstance = axios.create({
   baseURL: baseUrl,
   timeout: 5000,

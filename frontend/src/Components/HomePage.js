@@ -10,7 +10,7 @@ const HomePage = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType === 1) {
+    if (userType === "1") {
       navigate(`/studentPage`);
     }
   };

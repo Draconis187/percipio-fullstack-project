@@ -37,9 +37,9 @@ const UserList = () => {
         header: "User Type",
         Cell: ({ row }) => {
           switch (row.original.userType) {
-            case 1:
+            case "1":
               return <span>Student</span>;
-            case 2:
+            case "2":
               return <span>Teacher</span>;
 
             default:
@@ -61,7 +61,7 @@ const UserList = () => {
           data={UserListData}
           enableRowActions
           renderRowActions={({ row }) =>
-            row.original.userType !== 0 ? (
+            row.original.userType !== "0" ? (
               <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
                 <IconButton
                   color="secondary"

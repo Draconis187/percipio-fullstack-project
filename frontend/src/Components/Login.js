@@ -40,11 +40,11 @@ const Login = (props) => {
         sessionStorage.setItem("userId", res.data.id);
         sessionStorage.setItem("userType", res.data.userType);
         switch (res.data.userType) {
-          case 0:
+          case "0":
             return navigate("/adminPage");
-          case 1:
+          case "1":
             return navigate("/studentPage");
-          case 2:
+          case "2":
             return navigate("/homePage");
           default:
             break;

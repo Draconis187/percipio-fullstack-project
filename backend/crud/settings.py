@@ -154,5 +154,5 @@ STATIC_URL = '/static/'
 # To collect the static files
 STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
-    'backend/static'
+    '/static'
 ]

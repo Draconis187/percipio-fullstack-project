@@ -9,9 +9,9 @@ const AdminPage = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType === "1") {
+    if (userType === 1) {
       navigate(`/studentPage`);
-    } else if (userType === "2") {
+    } else if (userType === 2) {
       navigate(`/homePage`);
     }
   };

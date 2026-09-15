@@ -61,7 +61,7 @@ const UserList = () => {
           data={UserListData}
           enableRowActions
           renderRowActions={({ row }) =>
-            row.original.userType !== "0" ? (
+            row.original.userType !== 0 ? (
               <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
                 <IconButton
                   color="secondary"

@@ -10,9 +10,9 @@ const StudentEnroll = () => {
 
   const checkUserCredentials = () => {
     const userType = sessionStorage.getItem("userType");
-    if (userType === "2") {
+    if (userType === 2) {
       navigate(`/homePage`);
-    } else if (userType === "0") {
+    } else if (userType === 0) {
       navigate(`/adminPage`);
     }
   };

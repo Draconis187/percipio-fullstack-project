@@ -43,7 +43,7 @@ const CourseDetails = () => {
   }, []);
 
   const navigateBack = () => {
-    if (userType === "1") {
+    if (userType === 1) {
       navigate(`/studentPage`);
     } else {
       navigate(`/homePage`);
@@ -131,7 +131,7 @@ const CourseDetails = () => {
                 variant="contained"
                 type="submit"
                 onClick={handleSubmit(submitCourse)}
-                disabled={userType === "1" ? false : true}
+                disabled={userType === 1 ? false : true}
               >
                 Enroll in this course
               </Button>

@@ -7,17 +7,13 @@ import NavBar from "./NavBar";
 const AdminPage = () => {
   const navigate = useNavigate();
 
-  const checkUserCredentials = () => {
+  useEffect(() => {
     const userType = sessionStorage.getItem("userType");
     if (userType === 1) {
       navigate(`/studentPage`);
     } else if (userType === 2) {
       navigate(`/homePage`);
     }
-  };
-
-  useEffect(() => {
-    checkUserCredentials();
   }, []);
 
   return (

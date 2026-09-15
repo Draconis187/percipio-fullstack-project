@@ -14,7 +14,7 @@ const AdminPage = () => {
     } else if (userType === 2) {
       navigate(`/homePage`);
     }
-  }, []);
+  });
 
   return (
     <Box>

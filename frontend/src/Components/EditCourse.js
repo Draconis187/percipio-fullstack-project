@@ -51,7 +51,7 @@ const EditCourse = () => {
 
   useEffect(() => {
     GetCourse();
-  }, [GetCourse]);
+  }, []);
 
   const undoChanges = () => {
     GetCourse();

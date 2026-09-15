@@ -18,7 +18,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     checkUserCredentials();
-  }, [checkUserCredentials]);
+  }, []);
 
   return (
     <Box>

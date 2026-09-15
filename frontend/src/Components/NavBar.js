@@ -47,7 +47,7 @@ export default function NavBar() {
 
   useEffect(() => {
     getNavPages();
-  }, [getNavPages]);
+  }, []);
 
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {

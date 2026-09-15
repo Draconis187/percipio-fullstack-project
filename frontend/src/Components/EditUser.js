@@ -46,7 +46,7 @@ const EditUser = () => {
 
   useEffect(() => {
     GetUser();
-  }, [GetUser]);
+  }, []);
 
   const undoChanges = () => {
     GetUser();

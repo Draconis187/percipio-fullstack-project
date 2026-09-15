@@ -21,6 +21,13 @@ const CourseDetails = () => {
 
   const navigate = useNavigate();
 
+  const GetCourse = () => {
+    AxiosInstance.get(`courses/${courseID}`).then((res) => {
+      setCourseDetails(res.data);
+      setLoading(false);
+    });
+  };
+
   const submitCourse = (course) => {
     AxiosInstance.post(`studentsAndCourses/`, {
       UserID: sessionStorage.getItem("userId"),
@@ -31,15 +38,9 @@ const CourseDetails = () => {
     });
   };
 
-  useEffect(
-    (courseID) => {
-      AxiosInstance.get(`courses/${courseID}`).then((res) => {
-        setCourseDetails(res.data);
-        setLoading(false);
-      });
-    },
-    [courseDetails],
-  );
+  useEffect(() => {
+    GetCourse();
+  }, []);
 
   const navigateBack = () => {
     if (userType === 1) {

@@ -17,7 +17,7 @@ const HomePage = () => {
 
   useEffect(() => {
     checkUserCredentials();
-  }, [checkUserCredentials]);
+  }, []);
 
   return (
     <Box>

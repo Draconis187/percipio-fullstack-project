@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-v86bdd-e5@tk311i7t-rnn%57e_h3bd*8u!rm_=q5^tg_do%id
 #Turn off when deploying
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backend-production-ef038.up.railway.app']
 
 
 # Application definition

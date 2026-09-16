@@ -38,6 +38,11 @@ export default function NavBar() {
   };
   const getNavPages = () => {
     setPages(["Courses", "Users"]);
+    if (userType != 0) {
+      setPages(["Courses"]);
+    } else {
+      setPages(["Courses", "Users"]);
+    }
     setGetUser(false);
   };
 
@@ -50,7 +55,7 @@ export default function NavBar() {
       navigate("/adminPage");
     } else if (e === "Courses" && userType !== 1) {
       navigate("/homePage");
-    } else {
+    } else if (e === "Courses") {
       navigate("/studentPage");
     }
   };
@@ -142,15 +147,25 @@ export default function NavBar() {
                 LMS
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {pages.map((page) => (
+                {userType === 1 ? (
                   <Button
-                    key={page}
-                    onClick={(e) => handleNavBarNavigate(page, e)}
+                    key={"Courses"}
+                    onClick={(e) => handleNavBarNavigate("Courses", e)}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
-                    {page}
+                    "Courses"
                   </Button>
-                ))}
+                ) : (
+                  pages.map((page) => (
+                    <Button
+                      key={page}
+                      onClick={(e) => handleNavBarNavigate(page, e)}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page}
+                    </Button>
+                  ))
+                )}
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Logout">

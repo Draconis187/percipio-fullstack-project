@@ -1,5 +1,11 @@
 # LMS
 
+## Purpose
+
+This application allows super users to create users as both teachers and students.
+Teachers and admins can create courses for students to enroll in.
+Students can enroll in courses and can see a list of the courses they are currently enrolled in.
+
 ## Steps to use
 
 - Fork the repo

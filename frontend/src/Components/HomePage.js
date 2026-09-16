@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import CourseList from "./CourseList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./NavBarTeachers";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const HomePage = () => {

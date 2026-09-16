@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./NavBarStudents";
 import StudentEnroll from "./StudentEnroll";
 
 const StudentPage = () => {

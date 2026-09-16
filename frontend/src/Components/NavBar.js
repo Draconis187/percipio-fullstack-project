@@ -46,14 +46,18 @@ export default function NavBar() {
   }, []);
 
   const handleNavBarNavigate = (e) => {
-    if (e === "Users") {
-      navigate("/adminPage");
-    } else if (e === "Courses") {
-      navigate("/homePage");
-    } else if (e === "StudentCourses") {
-      navigate("/studentPage");
+    switch (e) {
+      case "Users":
+        return navigate("/adminPage");
+
+      case "Courses":
+        return navigate("/homePage");
+
+      default:
+        return navigate("/studentPage");
     }
   };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };

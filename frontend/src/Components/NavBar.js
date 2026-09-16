@@ -38,13 +38,9 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    if (userType === 1 || userType === 2) {
-      setPages(["Courses"]);
-    } else {
-      setPages(["Courses", "Users"]);
-    }
+    setPages(["Courses", "Users"]);
     setGetUser(false);
-  }, [userType]);
+  }, []);
 
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {

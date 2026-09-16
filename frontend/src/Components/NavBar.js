@@ -44,11 +44,8 @@ export default function NavBar() {
       setPages(["Courses", "Users"]);
     }
     setGetUser(false);
-  }, [userType]);
+  });
 
-  const handleNavBarStudentNavigate = (e) => {
-    navigate("/studentPage");
-  };
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {
       navigate("/adminPage");

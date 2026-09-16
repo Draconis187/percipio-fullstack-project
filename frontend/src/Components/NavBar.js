@@ -36,13 +36,14 @@ export default function NavBar() {
       navigate("/");
     });
   };
-  const getNavPages = () => {
-    setPages(["Courses", "Users"]);
-    setGetUser(false);
-  };
 
   useEffect(() => {
-    getNavPages();
+    if (userType === 1 || userType === 2) {
+      setPages(["Courses"]);
+    } else {
+      setPages(["Courses", "Users"]);
+    }
+    setGetUser(false);
   }, [userType]);
 
   const handleNavBarStudentNavigate = (e) => {
@@ -51,8 +52,10 @@ export default function NavBar() {
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {
       navigate("/adminPage");
-    } else if (e === "Courses") {
+    } else if (e === "Courses" && userType === 2) {
       navigate("/homePage");
+    } else {
+      navigate("/studentPage");
     }
   };
   const handleCloseNavMenu = () => {
@@ -112,28 +115,16 @@ export default function NavBar() {
                   onClose={handleCloseNavMenu}
                   sx={{ display: { xs: "block", md: "none" } }}
                 >
-                  {userType === 1 ? (
-                    <Button
-                      key={"StudentCourses"}
-                      onClick={(e) =>
-                        handleNavBarStudentNavigate("StudentCourses", e)
-                      }
-                      sx={{ my: 2, color: "white", display: "block" }}
-                    >
-                      "Courses"
-                    </Button>
-                  ) : (
-                    pages.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography
-                          sx={{ textAlign: "center" }}
-                          onClick={(e) => handleNavBarNavigate(page, e)}
-                        >
-                          {page}
-                        </Typography>
-                      </MenuItem>
-                    ))
-                  )}
+                  {pages.map((page) => (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography
+                        sx={{ textAlign: "center" }}
+                        onClick={(e) => handleNavBarNavigate(page, e)}
+                      >
+                        {page}
+                      </Typography>
+                    </MenuItem>
+                  ))}
                 </Menu>
               </Box>
               <BookIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -155,27 +146,15 @@ export default function NavBar() {
                 LMS
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {userType === 1 ? (
+                {pages.map((page) => (
                   <Button
-                    key={"StudentCourses"}
-                    onClick={(e) =>
-                      handleNavBarStudentNavigate("StudentCourses", e)
-                    }
+                    key={page}
+                    onClick={(e) => handleNavBarNavigate(page, e)}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
-                    "Courses"
+                    {page}
                   </Button>
-                ) : (
-                  pages.map((page) => (
-                    <Button
-                      key={page}
-                      onClick={(e) => handleNavBarNavigate(page, e)}
-                      sx={{ my: 2, color: "white", display: "block" }}
-                    >
-                      {page}
-                    </Button>
-                  ))
-                )}
+                ))}
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Logout">

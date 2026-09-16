@@ -44,7 +44,7 @@ export default function NavBar() {
       setPages(["Courses", "Users"]);
     }
     setGetUser(false);
-  });
+  }, [userType]);
 
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {

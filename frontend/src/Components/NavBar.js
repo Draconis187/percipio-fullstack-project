@@ -45,19 +45,17 @@ export default function NavBar() {
     getNavPages();
   }, [userType]);
 
-  const handleNavBarNavigate = (e) => {
-    switch (e) {
-      case "Users":
-        return navigate("/adminPage");
-
-      case "Courses":
-        return navigate("/homePage");
-
-      default:
-        return navigate("/studentPage");
-    }
+  const handleNavBarStudentNavigate = (e) => {
+    navigate("/studentPage");
   };
 
+  const handleNavBarNavigate = (e) => {
+    if (e === "Users") {
+      navigate("/adminPage");
+    } else if (e === "Courses") {
+      navigate("/homePage");
+    }
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -118,7 +116,9 @@ export default function NavBar() {
                   {userType === 1 ? (
                     <Button
                       key={"StudentCourses"}
-                      onClick={(e) => handleNavBarNavigate("StudentCourses", e)}
+                      onClick={(e) =>
+                        handleNavBarStudentNavigate("StudentCourses", e)
+                      }
                       sx={{ my: 2, color: "white", display: "block" }}
                     >
                       "Courses"
@@ -159,7 +159,9 @@ export default function NavBar() {
                 {userType === 1 ? (
                   <Button
                     key={"StudentCourses"}
-                    onClick={(e) => handleNavBarNavigate("StudentCourses", e)}
+                    onClick={(e) =>
+                      handleNavBarStudentNavigate("StudentCourses", e)
+                    }
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
                     "Courses"

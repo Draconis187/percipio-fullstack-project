@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./NavBarStudents";
 
 const defaultValues = {
   Name: "",

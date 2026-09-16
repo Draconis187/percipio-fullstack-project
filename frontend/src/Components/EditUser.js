@@ -6,7 +6,7 @@ import MyTextField from "./FormComponents/MyTextField";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "./Axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MyPasswordField from "./FormComponents/MyPasswordField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";

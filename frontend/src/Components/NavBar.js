@@ -38,11 +38,6 @@ export default function NavBar() {
   };
   const getNavPages = () => {
     setPages(["Courses", "Users"]);
-    if (userType != 0) {
-      setPages(["Courses"]);
-    } else {
-      setPages(["Courses", "Users"]);
-    }
     setGetUser(false);
   };
 
@@ -53,9 +48,9 @@ export default function NavBar() {
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {
       navigate("/adminPage");
-    } else if (e === "Courses" && userType !== 1) {
-      navigate("/homePage");
     } else if (e === "Courses") {
+      navigate("/homePage");
+    } else if (e === "StudentCourses") {
       navigate("/studentPage");
     }
   };
@@ -116,16 +111,26 @@ export default function NavBar() {
                   onClose={handleCloseNavMenu}
                   sx={{ display: { xs: "block", md: "none" } }}
                 >
-                  {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography
-                        sx={{ textAlign: "center" }}
-                        onClick={(e) => handleNavBarNavigate(page, e)}
-                      >
-                        {page}
-                      </Typography>
-                    </MenuItem>
-                  ))}
+                  {userType === 1 ? (
+                    <Button
+                      key={"StudentCourses"}
+                      onClick={(e) => handleNavBarNavigate("StudentCourses", e)}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      "Courses"
+                    </Button>
+                  ) : (
+                    pages.map((page) => (
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                        <Typography
+                          sx={{ textAlign: "center" }}
+                          onClick={(e) => handleNavBarNavigate(page, e)}
+                        >
+                          {page}
+                        </Typography>
+                      </MenuItem>
+                    ))
+                  )}
                 </Menu>
               </Box>
               <BookIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -149,8 +154,8 @@ export default function NavBar() {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {userType === 1 ? (
                   <Button
-                    key={"Courses"}
-                    onClick={(e) => handleNavBarNavigate("Courses", e)}
+                    key={"StudentCourses"}
+                    onClick={(e) => handleNavBarNavigate("StudentCourses", e)}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
                     "Courses"

@@ -48,7 +48,6 @@ export default function NavBar() {
   const handleNavBarStudentNavigate = (e) => {
     navigate("/studentPage");
   };
-
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {
       navigate("/adminPage");

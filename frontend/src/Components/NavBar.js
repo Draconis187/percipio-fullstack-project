@@ -37,11 +37,7 @@ export default function NavBar() {
     });
   };
   const getNavPages = () => {
-    if (userType != 0) {
-      setPages(["Courses"]);
-    } else {
-      setPages(["Courses", "Users"]);
-    }
+    setPages(["Courses", "Users"]);
     setGetUser(false);
   };
 

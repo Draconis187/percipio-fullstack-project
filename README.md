@@ -71,7 +71,7 @@ Students can enroll in courses and can see a list of the courses they are curren
 │   ├── /src
 │   │   ├── /Components                       # Contains the React components used to build the app
 │   │   │   ├── /FormComponents               # Contains the custom Material UI components
-│   │   ├── /Tests/Frontend Tests             # Contains the frontend test files
+│   │   ├── /Tests                            # Contains the frontend test files
 │   │   ├── App.js                            # Main React App
 │   │   ├── index.css                         # Contains the css for the app
 │   │   ├── index.js                          # Default index Javascript file

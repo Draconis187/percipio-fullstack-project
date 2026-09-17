@@ -2,8 +2,8 @@ import { Box, Typography } from "@mui/material";
 import CourseList from "./CourseList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import NavBar from "./NavBarTeachers";
-import { NavBar as AdminNavbar } from "./NavBar";
+import TeacherNavBar from "./NavBarTeachers";
+import NavBar from "./NavBar";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const HomePage = () => {
@@ -25,9 +25,9 @@ const HomePage = () => {
       <CssBaseline />
       <div>
         {sessionStorage.getItem("userType") === 0 ? (
-          <AdminNavbar />
-        ) : (
           <NavBar />
+        ) : (
+          <TeacherNavBar />
         )}
         <Box>
           <Typography variant="h4">Course List</Typography>

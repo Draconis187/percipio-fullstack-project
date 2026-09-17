@@ -15,7 +15,7 @@ import BookIcon from "@mui/icons-material/Book";
 import { useEffect, useState } from "react";
 import AxiosInstance from "./Axios";
 
-export default function NavBar() {
+export default function TeacherNavBar() {
   const [pages, setPages] = useState();
   const [getUser, setGetUser] = useState(true);
 

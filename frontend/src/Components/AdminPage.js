@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import UserList from "./UserList";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBarTeachers";
+import NavBar from "./NavBar";
 
 const AdminPage = () => {
   const navigate = useNavigate();

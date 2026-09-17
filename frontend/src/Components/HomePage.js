@@ -3,6 +3,7 @@ import CourseList from "./CourseList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import NavBar from "./NavBarTeachers";
+import { NavBar as AdminNavbar } from "./NavBar";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const HomePage = () => {
@@ -23,7 +24,11 @@ const HomePage = () => {
     <Box>
       <CssBaseline />
       <div>
-        <NavBar />
+        {sessionStorage.getItem("userType") === 0 ? (
+          <AdminNavbar />
+        ) : (
+          <NavBar />
+        )}
         <Box>
           <Typography variant="h4">Course List</Typography>
           <CourseList />

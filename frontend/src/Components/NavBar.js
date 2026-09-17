@@ -45,10 +45,8 @@ export default function NavBar() {
   const handleNavBarNavigate = (e) => {
     if (e === "Users") {
       navigate("/adminPage");
-    } else if (e === "Courses" && userType === 2) {
-      navigate("/homePage");
     } else {
-      navigate("/studentPage");
+      navigate("/homePage");
     }
   };
   const handleCloseNavMenu = () => {
